@@ -57,9 +57,6 @@ def evaluate_risk(vision: VisionMetrics, sensors: SensorReadings | None) -> Risk
     if vision.motion_score >= Thresholds.Vision.MOTION_SEVERE:
         score += 3
         reasons.append("Instabilidade/Movimento severo")
-    elif sensors is not None and sensors.pir_detected:
-        score += 2
-        reasons.append("Assinatura térmica móvel")
 
     if sensors is not None and sensors.temperature_c is not None:
         if sensors.temperature_c >= Thresholds.Temp.MAX:

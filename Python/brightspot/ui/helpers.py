@@ -215,14 +215,12 @@ def _draw_sensor_strip(
             fill=Theme.Colors.SENSOR_LBL,
         )
 
-        # --- LÓGICA DE CORES DO SEMÁFORO (TRICOLOR) ---
         if risk_level == RiskLevel.CRITICAL:
             val_color = Theme.Colors.SENSOR_VAL_CRITICAL
         elif risk_level == RiskLevel.ATTENTION:
             val_color = Theme.Colors.SENSOR_VAL_ATTENTION
         else:
             val_color = Theme.Colors.SENSOR_VAL_NORMAL
-        # ---------------------------------------------
 
         val_font = _get_font(Theme.Fonts.SENSOR_VAL, bold=True)
         val_w = draw.textbbox((0, 0), value, font=val_font)[2]
@@ -238,7 +236,7 @@ def _draw_sensor_strip(
             font=val_font,
             fill=Theme.Colors.SENSOR_VAL_SHADOW,
         )
-        # O Pillow usa o val_color que foi definido no bloco if acima
+
         draw.text((vx, vy), value, font=val_font, fill=(*val_color, 255))
 
         if unit:
@@ -266,7 +264,6 @@ def _sensor_tiles(
             ("UMIDADE", "--", "%", RiskLevel.NORMAL),
             ("LUMINOSIDADE", "--", "%", RiskLevel.NORMAL),
             ("DISTÂNCIA", "--", "cm", RiskLevel.NORMAL),
-            ("PRESENÇA", "--", "", RiskLevel.NORMAL),
         ]
 
     dist_risk = RiskLevel.NORMAL
@@ -296,15 +293,11 @@ def _sensor_tiles(
         ):
             lum_risk = RiskLevel.ATTENTION
 
-    pir_val = "SIM" if sensors.pir_detected else "--"
-    pir_risk = RiskLevel.ATTENTION if sensors.pir_detected else RiskLevel.NORMAL
-
     return [
         ("TEMPERATURA", _fv(sensors.temperature_c), "°C", temp_risk),
         ("UMIDADE", _fv(sensors.humidity_pct), "%", hum_risk),
         ("LUMINOSIDADE", _fv(sensors.luminosity_pct), "%", lum_risk),
         ("DISTÂNCIA", _fv(sensors.distance_cm), "cm", dist_risk),
-        ("PRESENÇA", pir_val, "", pir_risk),
     ]
 
 

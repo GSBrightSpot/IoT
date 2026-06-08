@@ -16,7 +16,6 @@ class SensorReadings:
     temperature_c: float | None = None
     humidity_pct: float | None = None
     luminosity_pct: float | None = None
-    pir_detected: bool | None = None
     distance_cm: float | None = None
     timestamp: float = 0.0
     raw: str = ""
@@ -90,11 +89,10 @@ def _from_json(line: str) -> SensorReadings:
     raw_ldr = _to_float(payload.get("ldr"))
 
     return SensorReadings(
-        temperature_c=_to_float(payload.get("temp") or payload.get("temperature")),
-        humidity_pct=_to_float(payload.get("hum") or payload.get("humidity")),
+        temperature_c=_to_float(payload.get("temp")),
+        humidity_pct=_to_float(payload.get("hum")),
         luminosity_pct=_ldr_to_pct(raw_ldr),
-        pir_detected=_to_bool(payload.get("pir")),
-        distance_cm=_to_float(payload.get("distance") or payload.get("distance_cm")),
+        distance_cm=_to_float(payload.get("distance_cm")),
         timestamp=time.time(),
         raw=line,
     )
@@ -104,19 +102,6 @@ def _to_float(value: object) -> float | None:
     if value is None:
         return None
     try:
-        return float(value)  # ty:ignore[invalid-argument-type]
+        return float(value)  # type: ignore
     except (TypeError, ValueError):
         return None
-
-
-def _to_bool(value: object) -> bool | None:
-    if value is None:
-        return None
-    if isinstance(value, bool):
-        return value
-    normalized = str(value).strip().lower()
-    if normalized in {"1", "true", "on", "yes", "detected"}:
-        return True
-    if normalized in {"0", "false", "off", "no"}:
-        return False
-    return None

@@ -3,10 +3,12 @@
 Monitor ambiental com visão computacional em tempo real (webcam) e integração opcional de sensores via serial.
 
 ## Requisitos
+
 - Python 3.11+
 - [uv](https://docs.astral.sh/uv/)
 
 ## Setup com uv
+
 No diretório do projeto:
 
 ```powershell
@@ -16,33 +18,35 @@ uv sync
 ```
 
 ## Execução
+
 ### Somente webcam
+
 ```powershell
-uv run python -m src.main
+uv run python -m main
 ```
 
 ### Webcam + sensores serial
+
+> Substitua `COM3` pela porta serial correta do seu dispositivo.
+
 ```powershell
-uv run python -m src.main --serial-port COM3 --baudrate 115200
+uv run python -m main --serial-port COM3
 ```
 
-### Opções úteis
+### Ajuda e opções
+
 ```powershell
-uv run python -m src.main --help
+uv run python -m main --help
 ```
 
 ## Formato serial esperado (Arduino)
-Pode enviar JSON:
-```text
-{"temp":28.4,"hum":62.1,"lux":180,"pir":1,"distance_cm":72}
-```
 
-Ou pares `chave=valor`:
 ```text
-temp=28.4,hum=62.1,lux=180,pir=1,distance_cm=72
+{"temp":28.4,"hum":62.1,"ldr":180,"distance_cm":72}
 ```
 
 ## Estrutura
+
 ```text
 src/
   main.py
