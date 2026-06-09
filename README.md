@@ -11,7 +11,7 @@ Solução de monitoramento ambiental com **Visão Computacional em tempo real** 
 | **Professor(a)**  | Yan Gabriel Coelho            |
 | **Turma**         | 3ESPX                         |
 | **Instituição**   | FIAP                          |
-| **Link do Video** |                               |
+| **Link do Video** | https://youtu.be/cTemqP8crDM  |
 
 ### Equipe
 
