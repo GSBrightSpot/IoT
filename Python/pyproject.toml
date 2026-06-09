@@ -10,5 +10,4 @@ dependencies = [
     "opencv-python>=4.10.0.84",
     "pillow>=12.2.0",
     "pyserial>=3.5",
-    "ultralytics>=8.4.61",
 ]
